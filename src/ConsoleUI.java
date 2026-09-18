@@ -11,15 +11,18 @@ public class ConsoleUI {
         boolean running = true;
         while (running) {
             showMenu();
-            int choice = Integer.parseInt(IO.readln("Indtast: "));
-            switch (choice) {
-                case 1 -> borrowBook();
-                case 2 -> returnBook();
-                case 3 -> showLoans();
-                case 0 -> running = false;
-                default -> IO.println("Ugyldigt valg");
+            try {
+                int choice = Integer.parseInt(IO.readln("Indtast: "));
+                switch (choice) {
+                    case 1 -> borrowBook();
+                    case 2 -> returnBook();
+                    case 3 -> showLoans();
+                    case 0 -> running = false;
+                    default -> IO.println("Ugyldigt valg");
+                }
+            } catch (NumberFormatException exception) {
+                IO.println("Ugyldigt input - skriv et tal.");
             }
-
         }
     }
 
