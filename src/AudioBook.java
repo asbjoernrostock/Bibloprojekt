@@ -6,4 +6,7 @@ public class AudioBook extends Resource {
         super(isbn, title, author); //sender til Resource, isbn = identifier osv..
         this.duration = duration;
     }
+    public int getDuration() {
+        return duration;
+    }
 }

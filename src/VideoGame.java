@@ -6,4 +6,7 @@ public class VideoGame extends Resource {
         super(ean, title, studio); //Sender til resources, ean = identifier osv..
         this.platform = platform;
     }
+    public String getPlatform() {
+        return platform;
+    }
 }

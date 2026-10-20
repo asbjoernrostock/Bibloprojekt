@@ -14,8 +14,8 @@ public class ConsoleUI {
             try {
                 int choice = Integer.parseInt(IO.readln("Indtast: "));
                 switch (choice) {
-                    case 1 -> borrowBook();
-                    case 2 -> returnBook();
+                    case 1 -> borrowResource();
+                    case 2 -> returnResource();
                     case 3 -> showLoans();
                     case 0 -> running = false;
                     default -> IO.println("Ugyldigt valg");
@@ -35,11 +35,11 @@ public class ConsoleUI {
         IO.println();
     }
 
-    private void borrowBook() {
+    private void borrowResource() {
         int memberId = Integer.parseInt(IO.readln("Indtast medlemsnummer: "));
-        int bookId = Integer.parseInt(IO.readln("Indtast bog id: "));
+        int bookId = Integer.parseInt(IO.readln("Indtast materiale identifier: "));
 
-        boolean succes = library.loanBook(bookId, memberId);
+        boolean succes = library.loanResource(identifier, memberId);
             if (succes) {
                 IO.println("Lån registreret");
             } else {
@@ -48,10 +48,10 @@ public class ConsoleUI {
 
     }
 
-    private void returnBook() {
-        int bookId = Integer.parseInt(IO.readln("Indtast bog id: "));
+    private void returnResource() {
+        int bookId = Integer.parseInt(IO.readln("Indtast materiale identifier: "));
 
-        boolean succes = library.returnBook(bookId);
+        boolean succes = library.returnResource(identifier);
             if (succes) {
                 IO.println("Aflevering registreret");
             } else {

@@ -43,7 +43,7 @@ public class Library {
         }
     }
 
-    public Resource getResource(int identifier) {
+    public Resource getResource(String identifier) {
         for (Resource resource : resources) {
             if (resource.getIdentifier().equals(identifier)) {
                 return resource;
@@ -61,30 +61,34 @@ public class Library {
         return null;
     }
 
-    public boolean loanBook(int bookId, int memberId) {
-        Book book = getBook(bookId);
+    public LoanResult loanResource(String identifier, int memberId) {
         Member member = getMember(memberId);
 
-        if (book == null || member == null) {
-            return false;
+        if (member == null) {
+            return LoanResult.MEMBER_NOT_FOUND;
         }
+        Resource resource = getResource(identifier);
+        if (resource == null) {
+            return LoanResult.RESOURCE_NOT_FOUND;
+        }
+
         for (Loan loan : loans) {
-            if (loan.getBook().id() == bookId) {
-                return false;
+            if (loan.getResource().getIdentifier().equals(identifier)) {
+                return LoanResult.ALREADY_LOANED;
             }
         }
-        Loan loan = new Loan(book, member, LocalDate.now());
+        Loan loan = new Loan(resource, member, LocalDate.now());
 
         loans.add(loan);
 
-        return true;
+        return LoanResult.SUCCES;
     }
 
-    public boolean returnBook(int bookId) {
+    public boolean returnResource(String identifier) {
         for (int i = 0; i < loans.size(); i++) {
             Loan loan = loans.get(i);
 
-            if (loan.getBook().id() == bookId) {
+            if (loan.getResource().getIdentifier().equals(identifier)) {
                 loans.remove(i);
                 return true;
             }
