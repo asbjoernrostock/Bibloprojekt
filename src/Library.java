@@ -7,16 +7,16 @@ public class Library {
     private ArrayList<Member> members = new ArrayList<>();
     private ArrayList<Loan> loans = new ArrayList<>();
 
-    public void addBook(Book book) {
-        books.add(book);
+    public void addResource(Resource resource) {
+        resources.add(resource);
     }
 
     public void addMember(Member member) {
         members.add(member);
     }
 
-    public ArrayList<Book> getBooks() {
-        return books;
+    public ArrayList<Resource> getResources() {
+        return resources;
     }
 
     public ArrayList<Member> getMembers() {
@@ -27,10 +27,10 @@ public class Library {
         return loans;
     }
 
-    public void printBooks() {
-        IO.println("\u001B[34mBøger:\u001B[0m");
-        for (Book book : books) {
-            IO.println(book);
+    public void printResources() {
+        IO.println("Materialer:");
+        for (Resource resource : resources) {
+            IO.println(resource);
             IO.println();
 
         }
@@ -43,10 +43,10 @@ public class Library {
         }
     }
 
-    public Book getBook(int bookid) {
-        for (Book book : books) {
-            if (book.id() == bookid) {
-                return book;
+    public Resource getResource(int identifier) {
+        for (Resource resource : resources) {
+            if (resource.getIdentifier().equals(identifier)) {
+                return resource;
             }
         }
         return null;
