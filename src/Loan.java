@@ -2,9 +2,9 @@ import java.time.LocalDate;
 
 public class Loan {
 
-    private final Book book;
-    private final Member member;
-    private final LocalDate borrowedDate;
+    private Resource resources;
+    private Member member;
+    private LocalDate borrowedDate;
 
     public Loan(Book book, Member member, LocalDate borrowedDate) {
         this.book = book;
