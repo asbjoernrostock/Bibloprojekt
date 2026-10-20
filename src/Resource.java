@@ -21,5 +21,9 @@ public class Resource {
     public String getCreator() {
         return creator;
     }
+    @Override
+    public String toString() {
+        return creator + "\n" + title + "\n" + "identifier: " + identifier;
+    }
 
 }

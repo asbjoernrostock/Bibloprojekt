@@ -11,5 +11,10 @@ public class Book extends Resource {
     public int getPages() {
         return pages;
     }
+    @Override
+    public String toString() {
+        return getCreator() + "\n" + getTitle() + "\n" + "ISBN: " + getIdentifier()
+                + "\n" + "Pages: " + pages;
+    }
 }
 
