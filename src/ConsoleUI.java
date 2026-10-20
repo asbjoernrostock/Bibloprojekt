@@ -37,19 +37,31 @@ public class ConsoleUI {
 
     private void borrowResource() {
         int memberId = Integer.parseInt(IO.readln("Indtast medlemsnummer: "));
-        int bookId = Integer.parseInt(IO.readln("Indtast materiale identifier: "));
+        String identifier = IO.readln("Indtast materiale identifier: ");
 
-        boolean succes = library.loanResource(identifier, memberId);
-            if (succes) {
+        LoanResult result = library.loanResource(identifier, memberId);
+            switch (result) {
+                case SUCCES:
                 IO.println("Lån registreret");
-            } else {
-                IO.println("Der er sket en fejl");
+                break;
+
+                case MEMBER_NOT_FOUND:
+                IO.println("Medlemmet er ikke registreret");
+                break;
+
+                case RESOURCE_NOT_FOUND:
+                    IO.println("Materialet er ikke registreret");
+                    break;
+
+                case ALREADY_LOANED:
+                    IO.println("Materialet er allerede udlånt");
+                    break;
             }
 
     }
 
     private void returnResource() {
-        int bookId = Integer.parseInt(IO.readln("Indtast materiale identifier: "));
+        String identifier = IO.readln("Indtast materiale identifier: ");
 
         boolean succes = library.returnResource(identifier);
             if (succes) {
