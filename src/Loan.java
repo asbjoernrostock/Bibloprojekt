@@ -2,18 +2,18 @@ import java.time.LocalDate;
 
 public class Loan {
 
-    private final Book book;
-    private final Member member;
-    private final LocalDate borrowedDate;
+    private Resource resource;
+    private Member member;
+    private LocalDate borrowedDate;
 
-    public Loan(Book book, Member member, LocalDate borrowedDate) {
-        this.book = book;
+    public Loan(Resource resource, Member member, LocalDate borrowedDate) {
+        this.resource = resource;
         this.member = member;
         this.borrowedDate = borrowedDate;
     }
 
-    public Book getBook() {
-        return book;
+    public Resource getResource() {
+        return resource;
     }
 
     public Member getMember() {
@@ -31,7 +31,7 @@ public class Loan {
 
     @Override
     public String toString() {
-        return book + "\n"
+        return resource + "\n"
                 + member + "\n"
                 + "Afleveringsfrist: " + getDueDate();
     }

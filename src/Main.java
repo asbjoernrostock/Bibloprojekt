@@ -3,24 +3,9 @@ void main() {
        Library library = new Library();
 
         //Opretter bøgerne
-        Book book1 = new Book(
-                "Allan B. Downey",
-                "Think Java",
-                "989796",
-                1
-        );
-        Book book2 = new Book(
-                "Lærke L. Hansen",
-                "Jeg er en dværg",
-                "666999",
-                2
-        );
-        Book book3 = new Book(
-                "Svend Sved",
-                "Det er fugtigt",
-                "999666",
-                3
-        );
+        Book book1 = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
+        Book book2 = new Book("9783161484101", "Jeg er dværg", "Lærke L. Hansen", 250);
+        Book book3 = new Book("9783161484102", "Det er fugtigt", "Svend Sved", 300);
 
         //Opretter medlemmerne
         Member member1 = new Member("Lone Læder", 666);
