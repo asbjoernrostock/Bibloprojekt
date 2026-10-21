@@ -27,7 +27,12 @@ void main() {
         library.addMember(member3);
 
         //Tilføjer bøgerne til array
-
+        library.addResource(book1);
+        library.addResource(book2);
+        library.addResource(book3);
+ library.addResource(audioBook1);
+ library.addResource(videoGame1);
+ library.addResource(movie1);
 
         //ConsoleUI
         ConsoleUI consoleUI = new ConsoleUI(library);
