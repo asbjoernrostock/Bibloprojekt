@@ -41,6 +41,7 @@ public class ConsoleUI {
 
         LoanResult result = library.loanResource(identifier, memberId);
             switch (result) {
+
                 case SUCCES:
                 IO.println("Lån registreret");
                 break;

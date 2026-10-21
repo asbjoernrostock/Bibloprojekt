@@ -28,7 +28,7 @@ public class Library {
     }
 
     public void printResources() {
-        IO.println("Materialer:");
+        IO.println("Materialer: ");
         for (Resource resource : resources) {
             IO.println(resource);
             IO.println();
