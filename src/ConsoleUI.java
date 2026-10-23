@@ -17,6 +17,7 @@ public class ConsoleUI {
                     case 1 -> borrowResource();
                     case 2 -> returnResource();
                     case 3 -> showLoans();
+                    case 4 -> registerMember();
                     case 0 -> running = false;
                     default -> IO.println("Ugyldigt valg");
                 }
@@ -30,7 +31,8 @@ public class ConsoleUI {
         IO.println();
         IO.println("1. Lån");
         IO.println("2. Aflever");
-        IO.println("3. Vis alle lån");
+        IO.println("3. Vis låneres lån");
+        IO.println("4. Registrer ny låner");
         IO.println("0. Afslut");
         IO.println();
     }
@@ -84,6 +86,19 @@ public class ConsoleUI {
                     IO.println();
                 }
             }
+    }
+    //Metoden til at registrere nye medlemmer
+    private void registerMember() {
+        String name = IO.readln("Indtast navn: ");
+        int memberId = Integer.parseInt(IO.readln("Indtast medlemsnummer: "));
+
+        boolean succes = library.registerMember(name, memberId);
+
+        if (succes) {
+            IO.println("Låner registreret");
+        } else {
+            IO.println("Der findes allerede en låner med dette medlemsnummer");
+        }
     }
 
 }
