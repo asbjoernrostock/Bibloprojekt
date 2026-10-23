@@ -106,7 +106,7 @@ public class Library {
         }
         return foundLoans;
     }
-    //metode til at registrer nye medlemmer i Console, som også tester for om medlemsnumemr findes
+    //metode til at registrer nye medlemmer i Console, som også tester for om medlemsnummer findes
     public boolean registerMember(String name, int memberId) {
         Member existingMember = getMember(memberId);
 
