@@ -7,6 +7,15 @@ public class Library {
     private ArrayList<Member> members = new ArrayList<>();
     private ArrayList<Loan> loans = new ArrayList<>();
 
+    public boolean isAvailable(String identifier) {
+        for (Loan loan : loans) {
+            if (loan.getResource().getIdentifier().equals(identifier)); {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addResource(Resource resource) {
         resources.add(resource);
     }
@@ -63,25 +72,18 @@ public class Library {
 
     public LoanResult loanResource(String identifier, int memberId) {
         Member member = getMember(memberId);
-
-        if (member == null) {
-            return LoanResult.MEMBER_NOT_FOUND;
-        }
         Resource resource = getResource(identifier);
-        if (resource == null) {
-            return LoanResult.RESOURCE_NOT_FOUND;
-        }
 
-        for (Loan loan : loans) {
-            if (loan.getResource().getIdentifier().equals(identifier)) {
+        if (member != null && resource != null) {
+            if (isAvailable(identifier)) {
+                Loan loan = new Loan(resource, member, LocalDate.now());
+                loans.add(loan);
+                return LoanResult.SUCCES;
+        } else {
                 return LoanResult.ALREADY_LOANED;
             }
         }
-        Loan loan = new Loan(resource, member, LocalDate.now());
-
-        loans.add(loan);
-
-        return LoanResult.SUCCES;
+        return LoanResult.RESOURCE_NOT_FOUND;
     }
 
     public boolean returnResource(String identifier) {
