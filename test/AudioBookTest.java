@@ -12,4 +12,16 @@ public class AudioBookTest {
         //Assert
         assertEquals("J. K. Rowling", creator);
     }
+    @Test
+    void audioBookTestTrue() {
+
+        //Arrange
+        AudioBook audioBook1 = new AudioBook("9783161484103", "Harry Potter", "J. K. Rowling", 70);
+        //Act
+        int duration = audioBook1.getDuration();
+        //Assert
+        assertTrue(70 <= duration);
+    }
+
 }
+
