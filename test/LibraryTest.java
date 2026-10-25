@@ -79,4 +79,40 @@ public class LibraryTest {
         //Assert
         assertEquals(LoanResult.RESOURCE_NOT_FOUND, result);
     }
+    @Test
+    void testMemberNotFound(){ //Fixed "MEMBER_NOT_FOUND"
+        //Arrange
+        Library library = new Library();
+        Member member = new Member("Finn Mig", 888);
+        library.addMember(member);
+        //Act
+        LoanResult result = library.loanResource("97783161484100",999);
+        //Assert
+        assertEquals(LoanResult.MEMBER_NOT_FOUND, result);
+    }
+    @Test
+    void testRegisterMemberSuccess() {
+        // Arrange
+        Library library = new Library();
+
+        // Act
+        boolean result = library.registerMember("Finn Mig", 888);
+
+        // Assert
+        assertTrue(result);
+        assertNotNull(library.getMember(888));
+    }
+    @Test
+    void testRegisterMemberAlreadyExists() {
+        // Arrange
+        Library library = new Library();
+        library.registerMember("Finn Mig", 888);
+
+        // Act
+        boolean result = library.registerMember("Lone Læder", 888);
+
+        // Assert
+        assertFalse(result);
+        assertEquals(1, library.getMembers().size());
+    }
 }
