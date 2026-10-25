@@ -28,6 +28,9 @@ public class Loan {
         LocalDate today = LocalDate.now();
         return today.isAfter(getDueDate());
     }
+    public LocalDate getBorrowedDate() {
+        return borrowedDate;
+    }
 
     @Override
     public String toString() {
