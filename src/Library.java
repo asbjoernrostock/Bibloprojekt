@@ -72,18 +72,23 @@ public class Library {
 
     public LoanResult loanResource(String identifier, int memberId) {
         Member member = getMember(memberId);
+
+        if (member == null) {
+            return LoanResult.MEMBER_NOT_FOUND;
+        }
         Resource resource = getResource(identifier);
 
-        if (member != null && resource != null) {
-            if (isAvailable(identifier)) {
-                Loan loan = new Loan(resource, member, LocalDate.now());
-                loans.add(loan);
-                return LoanResult.SUCCES;
-        } else {
-                return LoanResult.ALREADY_LOANED;
-            }
+        if (resource == null) {
+            return LoanResult.RESOURCE_NOT_FOUND;
         }
-        return LoanResult.RESOURCE_NOT_FOUND;
+        if (!isAvailable(identifier)) {
+            return LoanResult.ALREADY_LOANED;
+        }
+        Loan loan = new Loan(resource, member, LocalDate.now());
+
+        loans.add(loan);
+
+        return LoanResult.SUCCES;
     }
 
     public boolean returnResource(String identifier) {
