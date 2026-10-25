@@ -9,11 +9,11 @@ public class Library {
 
     public boolean isAvailable(String identifier) {
         for (Loan loan : loans) {
-            if (loan.getResource().getIdentifier().equals(identifier)); {
-                return true;
+            if (loan.getResource().getIdentifier().equals(identifier)) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public void addResource(Resource resource) {
