@@ -39,6 +39,8 @@ public class LibraryTest {
 
         library.addMember(member1);
         library.addMember(member2);
+        library.addResource(book1);
+
         library.loanResource("9783161484100", 888);
 
         //Act
