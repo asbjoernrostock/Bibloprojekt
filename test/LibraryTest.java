@@ -33,12 +33,16 @@ public class LibraryTest {
 
         //Arrange
         Library library = new Library();
-        int memberId = 666;
-        String identifier = "9783161484100";
+        Member member1 = new Member("Lone Læder", 666);
+        Member member2 = new Member("Finn Mig", 888);
+        Book book1 = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
+
+        library.addMember(member1);
+        library.addMember(member2);
+        library.loanResource("9783161484100", 888);
 
         //Act
-        library.loanResource("9783161484100", 888);
-        LoanResult result = library.loanResource(identifier, memberId);
+        LoanResult result = library.loanResource("9783161484100", 666);
 
         //Assert
         assertEquals(LoanResult.ALREADY_LOANED, result);
