@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LibraryTest {
+
     @Test
     void testGetResource(){
         //Arrange
@@ -64,5 +65,18 @@ public class LibraryTest {
 
         //Assert
         assertEquals(LoanResult.ALREADY_LOANED, result);
+    }
+    @Test
+    void testLoanWithUnknownResource() {
+        //Arrange
+        Library library = new Library();
+        Member member = new Member("Lone Læder", 666);
+        library.addMember(member);
+
+        //Act
+        LoanResult result = library.loanResource("FINDES-IKKE", 666);
+
+        //Assert
+        assertEquals(LoanResult.RESOURCE_NOT_FOUND, result);
     }
 }
