@@ -26,6 +26,6 @@ public class BookTest {
     String creatorIs = book.getCreator();
 
     //Assert
-    assertTrue(true, creatorIs);
+    assertTrue(creatorIs.contains("Downey"));
     }
 }

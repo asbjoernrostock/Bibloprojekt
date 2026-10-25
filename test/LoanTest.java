@@ -83,5 +83,20 @@ public class LoanTest {
         assertTrue(result.contains("Afleveringsfrist: " + loan.getDueDate()));
 
     }
+    @Test
+    void testBorrowedDate() {
+        //Arrange
+        Book book1 = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
+        Member member1 = new Member("Lone Læder", 666);
+        LocalDate borrowedDate = LocalDate.of(2026, 10, 25);
+
+        Loan loan = new Loan(book1, member1, borrowedDate);
+
+        //Act
+        LocalDate result = loan.getBorrowedDate();
+
+        //Assert
+        assertEquals(borrowedDate, result);
+    }
 
 }

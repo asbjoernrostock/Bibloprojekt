@@ -3,27 +3,46 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LibraryTest {
+
     @Test
     void testGetResource(){
         //Arrange
-        Resource resource = new Resource("9783161484100", "Think Java", "Allan B. Downey");
+        Library library = new Library();
+        Book book1 = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
+        library.addResource(book1);
 
         //Act
-        String result = resource.getIdentifier();
+        Resource result = library.getResource("9783161484100");
 
         //Assert
-        assertEquals("9783161484100", result);
+        assertEquals(book1, result);
 
     }
     @Test
     void testGetMember(){
 
         //Arrange
+        Library library = new Library();
         Member member = new Member("Finn Mig", 888);
+        library.addMember(member);
+
         //Act
-        int result = member.medlemsNummer();
+        Member result = library.getMember(888);
+
         //Assert
-        assertEquals(888,result);
+        assertEquals(member,result);
+    }
+
+    @Test
+    void testGetUnknownMemberReturnsNull() {
+        //Arrange
+        Library library = new Library();
+
+        //Act
+        Member result = library.getMember(999);
+
+        //Assert
+        assertNull(result);
     }
 
     @Test
@@ -31,14 +50,33 @@ public class LibraryTest {
 
         //Arrange
         Library library = new Library();
-        int memberId = 666;
-        String identifier = "9783161484100";
+        Member member1 = new Member("Lone Læder", 666);
+        Member member2 = new Member("Finn Mig", 888);
+        Book book1 = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
+
+        library.addMember(member1);
+        library.addMember(member2);
+        library.addResource(book1);
+
+        library.loanResource("9783161484100", 888);
 
         //Act
-        library.loanResource("9783161484100", 888);
-        LoanResult result = library.loanResource(identifier, memberId);
+        LoanResult result = library.loanResource("9783161484100", 666);
 
         //Assert
         assertEquals(LoanResult.ALREADY_LOANED, result);
+    }
+    @Test
+    void testLoanWithUnknownResource() {
+        //Arrange
+        Library library = new Library();
+        Member member = new Member("Lone Læder", 666);
+        library.addMember(member);
+
+        //Act
+        LoanResult result = library.loanResource("FINDES-IKKE", 666);
+
+        //Assert
+        assertEquals(LoanResult.RESOURCE_NOT_FOUND, result);
     }
 }
