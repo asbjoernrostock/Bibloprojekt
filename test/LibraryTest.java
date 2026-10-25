@@ -21,11 +21,15 @@ public class LibraryTest {
     void testGetMember(){
 
         //Arrange
+        Library library = new Library();
         Member member = new Member("Finn Mig", 888);
+        library.addMember(member);
+
         //Act
-        int result = member.medlemsNummer();
+        Member result = library.getMember(888);
+
         //Assert
-        assertEquals(888,result);
+        assertEquals(member,result);
     }
 
     @Test
