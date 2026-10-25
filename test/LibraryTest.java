@@ -6,13 +6,15 @@ public class LibraryTest {
     @Test
     void testGetResource(){
         //Arrange
-        Resource resource = new Resource("9783161484100", "Think Java", "Allan B. Downey");
+        Library library = new Library();
+        Book book1 = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
+        library.addResource(book1);
 
         //Act
-        String result = resource.getIdentifier();
+        Resource result = library.getResource("9783161484100");
 
         //Assert
-        assertEquals("9783161484100", result);
+        assertEquals(book1, result);
 
     }
     @Test
