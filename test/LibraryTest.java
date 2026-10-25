@@ -33,6 +33,18 @@ public class LibraryTest {
     }
 
     @Test
+    void testGetUnknownMemberReturnsNull() {
+        //Arrange
+        Library library = new Library();
+
+        //Act
+        Member result = library.getMember(999);
+
+        //Assert
+        assertNull(result);
+    }
+
+    @Test
     void testLoanResourceAlreadyLoaned(){
 
         //Arrange
