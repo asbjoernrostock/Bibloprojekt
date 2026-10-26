@@ -91,11 +91,14 @@ public class Library {
         return LoanResult.SUCCES;
     }
 
-    public boolean returnResource(String identifier) {
+    public boolean returnResource(String identifier, int memberId) {
         for (int i = 0; i < loans.size(); i++) {
             Loan loan = loans.get(i);
 
-            if (loan.getResource().getIdentifier().equals(identifier)) {
+            boolean correctResource = loan.getResource().getIdentifier().equals(identifier);
+            boolean correctMember = loan.getMember().medlemsNummer() == memberId;
+
+            if (correctResource && correctMember) {
                 loans.remove(i);
                 return true;
             }
