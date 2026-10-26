@@ -65,12 +65,13 @@ public class ConsoleUI {
 
     private void returnResource() {
         String identifier = IO.readln("Indtast materiale identifier: ");
+        int memberId = Integer.parseInt(IO.readln("Indtast medlemsnummer"));
 
-        boolean succes = library.returnResource(identifier);
+        boolean succes = library.returnResource(identifier, memberId);
             if (succes) {
                 IO.println("Aflevering registreret");
             } else {
-                IO.println("Der er sket en fejl");
+                IO.println("Der findes ikke et aktivt lån " + "for dette materiale og medlem");
             }
     }
 
