@@ -7,7 +7,7 @@ public class Loan {
     private LocalDate borrowedDate;
     private LocalDate dueDate;
 
-    public Loan(Resource resource, Member member, LocalDate borrowedDate) {
+    public Loan(Resource resource, Member member, LocalDate borrowedDate, LocalDate dueDate) {
         this.resource = resource;
         this.member = member;
         this.borrowedDate = borrowedDate;
