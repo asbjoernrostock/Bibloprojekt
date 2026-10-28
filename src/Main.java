@@ -1,6 +1,8 @@
 void main() {
 
        LoanPolicy loanPolicy = new StandardLoanPolicy();
+       LoanPolicy loanPolicy1 = new LoanPolicyAalborg();
+       LoanPolicy loanPolicy2 = new LoanPolicyBornholm();
        Library library = new Library(loanPolicy);
 
 
