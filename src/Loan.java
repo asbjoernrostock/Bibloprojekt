@@ -5,11 +5,13 @@ public class Loan {
     private Resource resource;
     private Member member;
     private LocalDate borrowedDate;
+    private LocalDate dueDate;
 
     public Loan(Resource resource, Member member, LocalDate borrowedDate) {
         this.resource = resource;
         this.member = member;
         this.borrowedDate = borrowedDate;
+        this.dueDate = dueDate;
     }
 
     public Resource getResource() {
@@ -21,12 +23,11 @@ public class Loan {
     }
 
     public LocalDate getDueDate() {
-        return borrowedDate.plusDays(14);
+        return dueDate;
     }
 
     public boolean isOverDue() {
-        LocalDate today = LocalDate.now();
-        return today.isAfter(getDueDate());
+        return LocalDate.now().isAfter(dueDate);
     }
     public LocalDate getBorrowedDate() {
         return borrowedDate;
