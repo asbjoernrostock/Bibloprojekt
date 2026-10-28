@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,7 +10,8 @@ public class LibraryTest {
     @Test
     void testGetResource(){
         //Arrange
-        Library library = new Library();
+        LoanPolicy policy = new StandardLoanPolicy();
+        Library library = new Library(policy);
         Book book1 = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
         library.addResource(book1);
 

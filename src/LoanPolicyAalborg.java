@@ -1,3 +1,6 @@
+//public class LoanPolicyAalborg implements LoanPolicy {
+
+//}
 import java.time.LocalDate;
 import java.util.ArrayList;
 

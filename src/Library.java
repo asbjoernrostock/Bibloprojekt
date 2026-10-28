@@ -97,7 +97,7 @@ public class Library {
 
         LocalDate borrowedDate = LocalDate.now();
         LocalDate dueDate = loanPolicy.calculateLocalDueDate(resource, borrowedDate);
-        Loan loan = new Loan(resource, member, LocalDate.now());
+        Loan loan = new Loan(resource, member, borrowedDate, dueDate);
 
         loans.add(loan);
 
