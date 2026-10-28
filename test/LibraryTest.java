@@ -224,4 +224,25 @@ public class LibraryTest {
         //Assert
         assertFalse(loans.isEmpty());
     }
+    @Test
+    void testLibraryCallsLoanPolicy() {
+        //Arrange
+        TestDoublePositive testDouble = new TestDoublePositive();
+        Library library = new Library(testDouble);
+
+        Member member1 = new Member("Lone Læder", 666);
+        Book book = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
+
+        library.addMember(member1);
+        library.addResource(book);
+
+        //Act
+        LoanResult result = library.loanResource("9783161484100", 666);
+
+        //Assert
+        assertEquals(LoanResult.SUCCES, result);
+        assertTrue(testDouble.canLoanCalled);
+        assertTrue(testDouble.calculateDueDateCalled);
+
+    }
 }
