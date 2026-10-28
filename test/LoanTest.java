@@ -10,9 +10,10 @@ public class LoanTest {
         Book book = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
         Member member = new Member("Lone Læder", 666);
         LocalDate borrowedDate = LocalDate.of(2025, 10, 1);
+        LocalDate dueDate = borrowedDate.plusDays(30);
 
         //Act
-        Loan loan = new Loan(book, member, borrowedDate);
+        Loan loan = new Loan(book, member, borrowedDate, dueDate);
 
         //Assert
         assertSame(book, loan.getResource());
@@ -26,13 +27,14 @@ public class LoanTest {
         Book book = new Book("9783161484101", "Jeg er dværg", "Lærke L. Hansen", 250);
         Member member = new Member("Vibe Fugl", 999);
         LocalDate borrowedDate = LocalDate.of(2025, 10, 1);
+        LocalDate dueDate = LocalDate.of(2026, 10, 31);
 
-        Loan loan = new Loan(book, member, borrowedDate);
+        Loan loan = new Loan(book, member, borrowedDate, dueDate);
 
 
-        LocalDate dueDate = loan.getDueDate();
+        LocalDate result = loan.getDueDate();
 
-        assertEquals(borrowedDate.plusDays(14), dueDate);
+        assertEquals(dueDate, result);
 
     }
 
@@ -42,8 +44,9 @@ public class LoanTest {
         Book book = new Book("9783161484102", "Det er fugtigt", "Svend Sved", 300);
         Member member = new Member("Finn Mig", 888);
         LocalDate borrowedDate = LocalDate.now().minusDays(5);
+        LocalDate dueDate = borrowedDate.plusDays(30);
 
-        Loan loan = new Loan(book, member, borrowedDate);
+        Loan loan = new Loan(book, member, borrowedDate, dueDate);
 
         //Act and Assert
         assertFalse(loan.isOverDue());
@@ -56,9 +59,10 @@ public class LoanTest {
         AudioBook audioBook = new AudioBook("9783161484103", "Harry Potter", "J. K. Rowling", 70);
         Member member = new Member("Lone Læder", 666);
         LocalDate borrowedDate = LocalDate.now().minusDays(20);
+        LocalDate dueDate = borrowedDate.minusDays(1);
 
 
-        Loan loan = new Loan(audioBook, member, borrowedDate);
+        Loan loan = new Loan(audioBook, member, borrowedDate, dueDate);
 
         //Act and Assert
         assertTrue(loan.isOverDue());
@@ -71,8 +75,9 @@ public class LoanTest {
         Movie movie = new Movie("5701234567890", "Spider Man", "Marvel", "Ken Læder", 80);
         Member member = new Member("Vibe Fugl", 999);
         LocalDate borrowedDate = LocalDate.of(2025, 10, 1);
+        LocalDate dueDate = borrowedDate.plusDays(30);
 
-        Loan loan = new Loan(movie, member, borrowedDate);
+        Loan loan = new Loan(movie, member, borrowedDate, dueDate);
 
         //Act
         String result = loan.toString();
@@ -89,8 +94,9 @@ public class LoanTest {
         Book book1 = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
         Member member1 = new Member("Lone Læder", 666);
         LocalDate borrowedDate = LocalDate.of(2026, 10, 25);
+        LocalDate dueDate = borrowedDate.plusDays(30);
 
-        Loan loan = new Loan(book1, member1, borrowedDate);
+        Loan loan = new Loan(book1, member1, borrowedDate, dueDate);
 
         //Act
         LocalDate result = loan.getBorrowedDate();

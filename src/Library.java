@@ -1,12 +1,13 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Library {
     private LoanPolicy loanPolicy;
 
-    private ArrayList<Resource> resources = new ArrayList<>();
-    private ArrayList<Member> members = new ArrayList<>();
-    private ArrayList<Loan> loans = new ArrayList<>();
+    private List<Resource> resources = new ArrayList<>();
+    private List<Member> members = new ArrayList<>();
+    private List<Loan> loans = new ArrayList<>();
 
     public Library(LoanPolicy loanPolicy) {
         this.loanPolicy = loanPolicy;
@@ -29,15 +30,15 @@ public class Library {
         members.add(member);
     }
 
-    public ArrayList<Resource> getResources() {
+    public List<Resource> getResources() {
         return resources;
     }
 
-    public ArrayList<Member> getMembers() {
+    public List<Member> getMembers() {
         return members;
     }
 
-    public ArrayList<Loan> getLoans() {
+    public List<Loan> getLoans() {
         return loans;
     }
 
@@ -119,7 +120,7 @@ public class Library {
         return false;
     }
 
-    public ArrayList<Loan> findLoansByMemberId(int memberId) {
+    public List<Loan> findLoansByMemberId(int memberId) {
         ArrayList<Loan> foundLoans = new ArrayList<>();
 
         for (Loan loan : loans) {

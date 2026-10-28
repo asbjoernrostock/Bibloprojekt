@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,7 +27,8 @@ public class LibraryTest {
     void testGetMember(){
 
         //Arrange
-        Library library = new Library();
+        LoanPolicy policy = new StandardLoanPolicy();
+        Library library = new Library(policy);
         Member member = new Member("Finn Mig", 888);
         library.addMember(member);
 
@@ -40,7 +42,8 @@ public class LibraryTest {
     @Test
     void testGetUnknownMemberReturnsNull() {
         //Arrange
-        Library library = new Library();
+        LoanPolicy policy = new StandardLoanPolicy();
+        Library library = new Library(policy);
 
         //Act
         Member result = library.getMember(999);
@@ -53,7 +56,8 @@ public class LibraryTest {
     void testLoanResourceAlreadyLoaned(){
 
         //Arrange
-        Library library = new Library();
+        LoanPolicy policy = new StandardLoanPolicy();
+        Library library = new Library(policy);
         Member member1 = new Member("Lone Læder", 666);
         Member member2 = new Member("Finn Mig", 888);
         Book book1 = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
@@ -73,7 +77,8 @@ public class LibraryTest {
     @Test
     void testLoanWithUnknownResource() {
         //Arrange
-        Library library = new Library();
+        LoanPolicy policy = new StandardLoanPolicy();
+        Library library = new Library(policy);
         Member member = new Member("Lone Læder", 666);
         library.addMember(member);
 
@@ -86,7 +91,8 @@ public class LibraryTest {
     @Test
     void testMemberNotFound(){ //Fixed "MEMBER_NOT_FOUND"
         //Arrange
-        Library library = new Library();
+        LoanPolicy policy = new StandardLoanPolicy();
+        Library library = new Library(policy);
         Member member = new Member("Finn Mig", 888);
         library.addMember(member);
         //Act
@@ -98,7 +104,8 @@ public class LibraryTest {
     @Test
     void testLoanWithUnknownMember() {
         //Arrange
-        Library library = new Library();
+        LoanPolicy policy = new StandardLoanPolicy();
+        Library library = new Library(policy);
         Book book1 = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
 
         library.addResource(book1);
@@ -113,7 +120,8 @@ public class LibraryTest {
     @Test
     void testRegisterMemberSuccess() {
         // Arrange
-        Library library = new Library();
+        LoanPolicy policy = new StandardLoanPolicy();
+        Library library = new Library(policy);
 
         // Act
         boolean result = library.registerMember("Finn Mig", 888);
@@ -125,7 +133,8 @@ public class LibraryTest {
     @Test
     void testRegisterMemberAlreadyExists() {
         // Arrange
-        Library library = new Library();
+        LoanPolicy policy = new StandardLoanPolicy();
+        Library library = new Library(policy);
         library.registerMember("Finn Mig", 888);
 
         // Act
@@ -138,7 +147,8 @@ public class LibraryTest {
     @Test
     void testResourceCanBeLoanedAgainAfterReturn() {
         //Arrange
-        Library library = new Library();
+        LoanPolicy policy = new StandardLoanPolicy();
+        Library library = new Library(policy);
         Member member = new Member("Lone Læder", 666);
         Book book = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
 
@@ -157,7 +167,8 @@ public class LibraryTest {
     @Test
     void testReturnActiveLoan() {
         //Arrange
-        Library library = new Library();
+        LoanPolicy policy = new StandardLoanPolicy();
+        Library library = new Library(policy);
         Member member = new Member("Lone Læder", 666);
         Book book = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
 
@@ -174,7 +185,8 @@ public class LibraryTest {
     @Test
     void testReturnWithWrongMemberFails() {
         //Arrange
-        Library library = new Library();
+        LoanPolicy policy = new StandardLoanPolicy();
+        Library library = new Library(policy);
         Member member1 = new Member("Lone Læder", 666);
         Member member2 = new Member("Finn Mig", 888);
         Book book = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
@@ -194,7 +206,8 @@ public class LibraryTest {
     @Test
     void testFailedReturnDoesNotChangeLibrary() {
         //Arrange
-        Library library = new Library();
+        LoanPolicy policy = new StandardLoanPolicy();
+        Library library = new Library(policy);
         Member member1 = new Member("Lone Læder", 666);
         Member member2 = new Member("Finn Mig", 888);
         Book book = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
@@ -207,9 +220,50 @@ public class LibraryTest {
 
         //Act
         library.returnResource("9783161484100", 888);
-        ArrayList<Loan> loans = library.findLoansByMemberId(666);
+        List<Loan> loans = library.findLoansByMemberId(666);
 
         //Assert
         assertFalse(loans.isEmpty());
+    }
+    @Test
+    void testLibraryCallsLoanPolicy() {
+        //Arrange
+        TestDoublePositive testDouble = new TestDoublePositive();
+        Library library = new Library(testDouble);
+
+        Member member1 = new Member("Lone Læder", 666);
+        Book book = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
+
+        library.addMember(member1);
+        library.addResource(book);
+
+        //Act
+        LoanResult result = library.loanResource("9783161484100", 666);
+
+        //Assert
+        assertEquals(LoanResult.SUCCES, result);
+        assertTrue(testDouble.canLoanCalled);
+        assertTrue(testDouble.calculateDueDateCalled);
+
+    }
+    @Test
+    void testLibraryRejectsLoanWhenPolicySaysNo() {
+        //Arrange
+        TestDoubleNegative testDouble = new TestDoubleNegative();
+        Library library = new Library(testDouble);
+
+        Member member1 = new Member("Lone Læder", 666);
+        Book book = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
+
+        library.addMember(member1);
+        library.addResource(book);
+
+        //Act
+        LoanResult result = library.loanResource("9783161484100", 666);
+
+        //Assert
+        assertEquals(LoanResult.NOT_ALLOWED, result);
+        assertTrue(testDouble.canLoanCalled);
+
     }
 }
