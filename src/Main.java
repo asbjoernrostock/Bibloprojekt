@@ -18,9 +18,11 @@ void main() {
 
         //opretter Film
         Movie movie1 = new Movie("5701234567890", "Spider Man", "Marvel", "Ken Læder", 80);
+        Movie movie2 = new Movie("5701234567891", "Thor", "Marvel", "Lise Lotte", 90);
 
         //opretter Spil
-        VideoGame videoGame1 = new VideoGame("5701234567891", "World of Warcraft", "Blizzard", "PC");
+        VideoGame videoGame1 = new VideoGame("5701234567893", "World of Warcraft", "Blizzard", "PC");
+        VideoGame videoGame2 = new VideoGame("5701234567894", "MineCraft", "Microsoft", "PC");
 
         //Opretter medlemmerne
         Member member1 = new Member("Lone Læder", 666);
