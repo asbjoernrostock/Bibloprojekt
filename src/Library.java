@@ -2,10 +2,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Library {
+    private LoanPolicy loanPolicy;
 
     private ArrayList<Resource> resources = new ArrayList<>();
     private ArrayList<Member> members = new ArrayList<>();
     private ArrayList<Loan> loans = new ArrayList<>();
+
+    public Library(LoanPolicy loanPolicy) {
+        this.loanPolicy = loanPolicy;
+    }
 
     public boolean isAvailable(String identifier) {
         for (Loan loan : loans) {
@@ -81,6 +86,11 @@ public class Library {
         if (resource == null) {
             return LoanResult.RESOURCE_NOT_FOUND;
         }
+
+        if (!loanPolicy.canLoan(member, resource, loans)) {
+            return LoanResult.NOT_ALLOWED;
+        }
+
         if (!isAvailable(identifier)) {
             return LoanResult.ALREADY_LOANED;
         }

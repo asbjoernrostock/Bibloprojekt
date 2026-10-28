@@ -1,8 +1,12 @@
 void main() {
 
-       Library library = new Library();
+       LoanPolicy loanPolicy = new StandardLoanPolicy();
+       Library library = new Library(loanPolicy);
 
-        //Opretter bøgerne
+
+
+ //Opretter bøgerne
+
         Book book1 = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
         Book book2 = new Book("9783161484101", "Jeg er dværg", "Lærke L. Hansen", 250);
         Book book3 = new Book("9783161484102", "Det er fugtigt", "Svend Sved", 300);
