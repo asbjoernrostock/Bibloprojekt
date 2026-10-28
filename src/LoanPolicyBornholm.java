@@ -1,3 +1,3 @@
-public class LoanPolicyBornholm implements LoanPolicy {
+//public class LoanPolicyBornholm implements LoanPolicy {
 
-}
+//}
