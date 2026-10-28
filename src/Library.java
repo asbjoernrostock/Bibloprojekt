@@ -94,6 +94,9 @@ public class Library {
         if (!isAvailable(identifier)) {
             return LoanResult.ALREADY_LOANED;
         }
+
+        LocalDate borrowedDate = LocalDate.now();
+        LocalDate dueDate = loanPolicy.calculateLocalDueDate(resource, borrowedDate);
         Loan loan = new Loan(resource, member, LocalDate.now());
 
         loans.add(loan);
