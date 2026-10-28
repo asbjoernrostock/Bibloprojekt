@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -219,7 +220,7 @@ public class LibraryTest {
 
         //Act
         library.returnResource("9783161484100", 888);
-        ArrayList<Loan> loans = library.findLoansByMemberId(666);
+        List<Loan> loans = library.findLoansByMemberId(666);
 
         //Assert
         assertFalse(loans.isEmpty());
