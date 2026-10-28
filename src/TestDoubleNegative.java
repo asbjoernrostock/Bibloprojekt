@@ -1,12 +1,13 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TestDoubleNegative implements LoanPolicy {
 
     public boolean canLoanCalled = false;
 
     @Override
-    public boolean canLoan(Member member, Resource resource, ArrayList<Loan> loans) {
+    public boolean canLoan(Member member, Resource resource, List<Loan> loans) {
         canLoanCalled = true;
         return  false;
     }

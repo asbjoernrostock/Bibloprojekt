@@ -1,10 +1,11 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class StandardLoanPolicy implements LoanPolicy {
 
     @Override
-    public boolean canLoan(Member member, Resource resource, ArrayList<Loan> loans) {
+    public boolean canLoan(Member member, Resource resource, List<Loan> loans) {
         return true;
     }
 
