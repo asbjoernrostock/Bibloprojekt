@@ -59,7 +59,7 @@ public class LoanTest {
         AudioBook audioBook = new AudioBook("9783161484103", "Harry Potter", "J. K. Rowling", 70);
         Member member = new Member("Lone Læder", 666);
         LocalDate borrowedDate = LocalDate.now().minusDays(20);
-        LocalDate dueDate = borrowedDate.plusDays(30);
+        LocalDate dueDate = borrowedDate.minusDays(1);
 
 
         Loan loan = new Loan(audioBook, member, borrowedDate, dueDate);
