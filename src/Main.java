@@ -4,6 +4,8 @@ void main() {
        LoanPolicy loanPolicy1 = new LoanPolicyAalborg();
        LoanPolicy loanPolicy2 = new LoanPolicyBornholm();
        Library library = new Library(loanPolicy);
+       LibrarySaver saver = new LibrarySaver(folder);
+       saver.saveLibrary(library);
 
 
 
