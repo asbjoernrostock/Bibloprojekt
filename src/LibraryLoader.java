@@ -25,9 +25,10 @@ public class LibraryLoader {
 
             while ((line = reader.readLine()) != null) {
 
-                String[] fields = line.split(",", 1);
+                String[] fields = line.split(",", -1);
 
-                int memberId = Integer.parseInt(fields[0]);
+                String memberIDText = fields[0].replace("\uFEFF", "");
+                int memberId = Integer.parseInt(memberIDText);
 
                 String name = fields[1];
 
@@ -51,9 +52,14 @@ public class LibraryLoader {
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split(",", -1);
 
-                Book book = new Book(fields[0], fields[1], fields[2]
-                        , Integer.parseInt(fields[3]));
-                books.add(book);
+                String identifier = fields[0].replace("\uFEFF", "");
+                String title = fields[1].trim();
+                String creator = fields[2].trim();
+                int pages = Integer.parseInt(fields[3].trim());
+
+               Book book = new Book(identifier, title, creator, pages);
+
+               books.add(book);
             }
         }
         return books;
@@ -72,8 +78,13 @@ public class LibraryLoader {
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split(",", -1);
 
-                Movie movie = new Movie(fields[0], fields[1], fields[2]
-                        , fields[3], Integer.parseInt(fields[4]));
+                String identifier = fields[0].replace("\uFEFF", "");
+                String title = fields[1].trim();
+                String studio = fields[2].trim();
+                String director = fields[3].trim();
+                int duration = Integer.parseInt(fields[4].trim());
+
+                Movie movie = new Movie(identifier, title, studio, director, duration);
                 movies.add(movie);
             }
         }
@@ -93,8 +104,12 @@ public class LibraryLoader {
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split(",", -1);
 
-                AudioBook audioBook = new AudioBook(fields[0], fields[1], fields[2]
-                        , Integer.parseInt(fields[3]));
+                String identifier = fields[0].replace("\uFEFF", "");
+                String title = fields[1].trim();
+                String creator = fields[2].trim();
+                int duration = Integer.parseInt(fields[3].trim());
+
+                AudioBook audioBook = new AudioBook(identifier, title, creator, duration);
                 audioBooks.add(audioBook);
             }
         }
@@ -114,7 +129,12 @@ public class LibraryLoader {
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split(",", -1);
 
-                VideoGame videoGame = new VideoGame(fields[0], fields[1], fields[2], fields[3]);
+                String identifier = fields[0].replace("\uFEFF", "");
+                String title = fields[1].trim();
+                String creator = fields[2].trim();
+                String platform = fields[3].trim();
+
+                VideoGame videoGame = new VideoGame(identifier, title, creator, platform);
                 videoGames.add(videoGame);
             }
         }
@@ -130,9 +150,18 @@ public class LibraryLoader {
             String line;
 
             while ((line = reader.readLine()) != null) {
+                if (line.isBlank()) {
+                    continue;
+                }
+
                 String[] fields = line.split(",", -1);
 
-                int memberId = Integer.parseInt(fields[0]);
+                if (fields.length < 4 || fields[0].isBlank() || fields[1].isBlank() || fields[2].isBlank()
+                        || fields[3].isBlank()) {
+                    continue;
+                }
+
+                int memberId = Integer.parseInt(fields[0].trim());
                 String resourceIdentifier = fields[1];
 
                 LocalDate borrowedDate = LocalDate.parse(fields[2]);
