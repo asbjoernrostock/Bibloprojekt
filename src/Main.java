@@ -1,51 +1,44 @@
-void main() {
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
-       LoanPolicy loanPolicy = new StandardLoanPolicy();
-       LoanPolicy loanPolicy1 = new LoanPolicyAalborg();
-       LoanPolicy loanPolicy2 = new LoanPolicyBornholm();
-       Library library = new Library(loanPolicy);
-       LibrarySaver saver = new LibrarySaver(folder);
-       saver.saveLibrary(library);
+void main() throws IOException {
 
+    // Mappen med bibliotekets CSV-filer
+    Path folder = Path.of("C:\\Users\\asse_\\Dokumenter\\bibliotek");
 
+    // Loader
+    LibraryLoader loader = new LibraryLoader(folder);
 
- //Opretter bøgerne
+    // Indlæs medlemmer
+    List<Member> members = loader.loadMembers();
 
-        Book book1 = new Book("9783161484100", "Think Java", "Allan B. Downey", 400);
-        Book book2 = new Book("9783161484101", "Jeg er dværg", "Lærke L. Hansen", 250);
-        Book book3 = new Book("9783161484102", "Det er fugtigt", "Svend Sved", 300);
+    // Indlæs alle materialer
+    List<Resource> resources = new ArrayList<>();
 
-        //opretter audiobooks
-        AudioBook audioBook1 = new AudioBook("9783161484103", "Harry Potter", "J. K. Rowling", 70);
+    resources.addAll(loader.loadMovies());
+    resources.addAll(loader.loadAudioBooks());
+    resources.addAll(loader.loadBooks());
+    resources.addAll(loader.loadVideoGames());
 
-        //opretter Film
-        Movie movie1 = new Movie("5701234567890", "Spider Man", "Marvel", "Ken Læder", 80);
-        Movie movie2 = new Movie("5701234567891", "Thor", "Marvel", "Lise Lotte", 90);
+    // Indlæs lån
+    List<Loan> loans = loader.loadLoans(members, resources);
 
-        //opretter Spil
-        VideoGame videoGame1 = new VideoGame("5701234567893", "World of Warcraft", "Blizzard", "PC");
-        VideoGame videoGame2 = new VideoGame("5701234567894", "MineCraft", "Microsoft", "PC");
+    // låne regler
+   LoanPolicy loanPolicy = new StandardLoanPolicy();
+   LoanPolicy loanPolicy1 = new LoanPolicyAalborg();
+   LoanPolicy loanPolicy2 = new LoanPolicyBornholm();
 
-        //Opretter medlemmerne
-        Member member1 = new Member("Lone Læder", 666);
-        Member member2 = new Member("Vibe Fugl", 999);
-        Member member3 = new Member("Finn Mig", 888);
-
-        //Tilføjer members til array
-        library.addMember(member1);
-        library.addMember(member2);
-        library.addMember(member3);
-
-        //Tilføjer bøgerne til array
-        library.addResource(book1);
-        library.addResource(book2);
-        library.addResource(book3);
- library.addResource(audioBook1);
- library.addResource(videoGame1);
- library.addResource(movie1);
+   //Saml biblioteket
+   Library library = new Library(loanPolicy, resources, members, loans);
 
         //ConsoleUI
         ConsoleUI consoleUI = new ConsoleUI(library);
 
         consoleUI.run();
+
+    // Gemmer ændringer ved afslutning
+    LibrarySaver saver = new LibrarySaver(folder);
+    saver.saveLibrary(library);
 }
