@@ -60,6 +60,10 @@ public class ConsoleUI {
                 case ALREADY_LOANED:
                     IO.println("Materialet er allerede udlånt");
                     break;
+
+                case NOT_ALLOWED:
+                    IO.println("Lånet er ikke tilladt");
+                    break;
             }
 
     }

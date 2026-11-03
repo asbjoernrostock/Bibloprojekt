@@ -3,10 +3,15 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-void main() throws IOException {
+void main(String[] args) throws IOException {
+
+    if(args.length == 0) {
+        IO.println("Du skal angive stien til biblioteksmappen");
+        return;
+    }
 
     // Mappen med bibliotekets CSV-filer
-    Path folder = Path.of("C:\\Users\\asse_\\Dokumenter\\bibliotek");
+    Path folder = Path.of(args[0]);
 
     // Loader
     LibraryLoader loader = new LibraryLoader(folder);
