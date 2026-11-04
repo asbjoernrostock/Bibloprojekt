@@ -12,6 +12,12 @@ public class Library {
     public Library(LoanPolicy loanPolicy) {
         this.loanPolicy = loanPolicy;
     }
+    public Library(LoanPolicy loanPolicy, List<Resource> recources, List<Member> members, List<Loan> loans) {
+        this.loanPolicy = loanPolicy;
+        this.resources = new ArrayList<>(recources);
+        this.members = new ArrayList<>(members);
+        this.loans = new ArrayList<>(loans);
+    }
 
     public boolean isAvailable(String identifier) {
         for (Loan loan : loans) {
