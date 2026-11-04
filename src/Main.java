@@ -46,4 +46,13 @@ void main(String[] args) throws IOException {
     // Gemmer ændringer ved afslutning
     LibrarySaver saver = new LibrarySaver(folder);
     saver.saveLibrary(library);
+
+    Collections.sort(loans);
+    Collections.sort(members);
+    Collections.sort(resources);
+
+    resources.sort(new ResourceCreatorComparator());
+    resources.sort(new ResourceTitleComparator());
+    loans.sort(new LoanBorrowedDateComparator());
+
 }
