@@ -1,5 +1,8 @@
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LoanTest {
@@ -104,5 +107,43 @@ public class LoanTest {
         //Assert
         assertEquals(borrowedDate, result);
     }
+    @Test
+    void testNaturalSortByDueDate() {
 
+        // Arrange
+        Member member =
+                new Member(
+                        "Lone Læder",
+                        666
+                );
+
+        Book book =
+                new Book(
+                        "1",
+                        "Think Java",
+                        "Allan",
+                        400
+                );
+
+        Loan lateLoan =
+                new Loan(
+                        book,
+                        member,
+                        LocalDate.of(2026, 11, 1),
+                        LocalDate.of(2026, 12, 1)
+                );
+
+        Loan earlyLoan = new Loan(book, member,
+                LocalDate.of(2026, 11, 1),
+                LocalDate.of(2026, 11, 15));
+
+        List<Loan> loans = new ArrayList<>(List.of(lateLoan, earlyLoan));
+
+
+        // Act
+        loans.sort(null);
+
+        // Assert
+        assertEquals(earlyLoan, loans.get(0));
+    }
 }
