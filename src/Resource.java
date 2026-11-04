@@ -1,4 +1,4 @@
-public class Resource {
+public class Resource implements Comparable<Resource> {
 
     private String identifier;
     private String title;
@@ -25,5 +25,8 @@ public class Resource {
     public String toString() {
         return creator + "\n" + title + "\n" + "identifier: " + identifier;
     }
-
+    @Override
+    public int compareTo(Resource other) {
+        return this.getIdentifier().compareTo(other.getIdentifier());
+    }
 }
