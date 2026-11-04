@@ -19,6 +19,11 @@ public class ConsoleUI {
                     case 2 -> returnResource();
                     case 3 -> showLoans();
                     case 4 -> registerMember();
+                    case 5 -> showResourcesByIdentifier();
+                    case 6 -> showResourcesByCreator();
+                    case 7 -> showResourcesByTitle();
+                    case 8 -> showLoansByDueDate();
+                    case 9 -> showLoansByBorrowedDate();
                     case 0 -> running = false;
                     default -> IO.println("Ugyldigt valg");
                 }
@@ -34,6 +39,11 @@ public class ConsoleUI {
         IO.println("2. Aflever");
         IO.println("3. Vis låneres lån");
         IO.println("4. Registrer ny låner");
+        IO.println("5. Vis materialer efter identifier");
+        IO.println("6. Vis materialer efter creator");
+        IO.println("7. Vis materialer efter titel");
+        IO.println("8. Vis lån efter afleveringsfrist");
+        IO.println("9. Vis lån efter lånedato");
         IO.println("0. Afslut");
         IO.println();
     }
@@ -106,5 +116,44 @@ public class ConsoleUI {
             IO.println("Der findes allerede en låner med dette medlemsnummer");
         }
     }
+    private void showResourcesByIdentifier() {
+        List<Resource> resources = library.getResourcesSortedByIdentifier();
 
+        for (Resource resource : resources) {
+            IO.println(resource);
+            IO.println();
+        }
+    }
+    private void showResourcesByCreator() {
+        List<Resource> resources = library.getResourcesSortedByCreator();
+
+        for (Resource resource : resources) {
+            IO.println(resource);
+            IO.println();
+        }
+    }
+    private void showResourcesByTitle() {
+        List<Resource> resources = library.getResourcesSortedByTitle();
+
+        for (Resource resource : resources) {
+            IO.println(resource);
+            IO.println();
+        }
+    }
+    private void showLoansByDueDate() {
+        List<Loan> loans = library.getLoansSortedByDueDate();
+
+        for (Loan loan : loans) {
+            IO.println(loan);
+            IO.println();
+        }
+    }
+    private void showLoansByBorrowedDate() {
+        List<Loan> loans = library.getLoansSortedByBorrowedDate();
+
+        for (Loan loan : loans) {
+            IO.println(loan);
+            IO.println();
+        }
+    }
 }

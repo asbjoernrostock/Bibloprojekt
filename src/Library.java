@@ -147,5 +147,39 @@ public class Library {
         members.add(member);
         return true;
     }
+    public List<Resource> getResourcesSortedByIdentifier() {
+        List<Resource> sortedResources = new ArrayList<>(resources);
+
+        sortedResources.sort(null);
+
+        return sortedResources;
+    }
+    public List<Resource> getResourcesSortedByCreator() {
+        List<Resource> sortedResources = new ArrayList<>(resources);
+
+        sortedResources.sort(new ResourceCreatorComparator());
+
+        return sortedResources;
+    }
+    public List<Resource> getResourcesSortedByTitle() {
+        List<Resource> sortedResources = new ArrayList<>(resources);
+
+        sortedResources.sort(new ResourceTitleComparator());
+        return sortedResources;
+    }
+    public List<Loan> getLoansSortedByDueDate() {
+        List<Loan> sortedLoans = new ArrayList<>(loans);
+
+        sortedLoans.sort(null);
+        return sortedLoans;
+    }
+    public List<Loan> getLoansSortedByBorrowedDate() {
+
+        List<Loan> sortedLoans = new ArrayList<>(loans);
+
+        sortedLoans.sort(new LoanBorrowedDateComparator());
+
+        return sortedLoans;
+    }
 
 }
